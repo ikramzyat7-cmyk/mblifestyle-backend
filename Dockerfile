@@ -20,5 +20,5 @@ EXPOSE 8000
 RUN echo "upload_max_filesize=100M" > /usr/local/etc/php/conf.d/uploads.ini \
     && echo "post_max_size=100M" >> /usr/local/etc/php/conf.d/uploads.ini \
     && echo "memory_limit=256M" >> /usr/local/etc/php/conf.d/uploads.ini
-    
+    RUN php artisan storage:link --force || true
 CMD php artisan serve --host=0.0.0.0 --port=${PORT:-8000}
