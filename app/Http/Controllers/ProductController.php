@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Helpers\ImageHelper;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -58,7 +59,7 @@ class ProductController extends Controller
             ksort($files);
             $paths = [];
             foreach ($files as $file) {
-                $paths[] = $file->store('products', 'public');
+                $paths[] = ImageHelper::storeCompressed($file, 'products');
             }
             $validated['images'] = $paths;
         }
@@ -73,7 +74,7 @@ class ProductController extends Controller
             $paths = [];
             foreach ($files as $file) {
                 if ($file && $file->isValid()) {
-                    $paths[] = $file->store('products', 'public');
+                    $paths[] = ImageHelper::storeCompressed($file, 'products');
                 }
             }
             if (!empty($paths)) {
@@ -126,7 +127,7 @@ class ProductController extends Controller
             ksort($files);
             $paths = [];
             foreach ($files as $file) {
-                $paths[] = $file->store('products', 'public');
+                $paths[] = ImageHelper::storeCompressed($file, 'products');
             }
             $validated['images'] = $paths;
         } elseif ($request->filled('existing_images_order')) {
@@ -143,7 +144,7 @@ class ProductController extends Controller
             $paths = [];
             foreach ($files as $file) {
                 if ($file && $file->isValid()) {
-                    $paths[] = $file->store('products', 'public');
+                    $paths[] = ImageHelper::storeCompressed($file, 'products');
                 }
             }
             if (!empty($paths)) {

@@ -46,6 +46,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/popup', [PopupController::class, 'update']);
 
     Route::get('/orders', [OrderController::class, 'index']);
+    Route::get('/orders/track/{code}', [OrderController::class, 'trackByCode']);
     Route::patch('/orders/{order}/confirm', [OrderController::class, 'confirm']);
     Route::patch('/orders/{order}/cancel', [OrderController::class, 'cancel']);
     Route::patch('/orders/{id}/deliver', [OrderController::class, 'deliver']);
@@ -61,6 +62,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/admin/banners', [BannerController::class, 'adminIndex']);
     Route::post('/banners', [BannerController::class, 'store']);
     Route::post('/banners/{banner}', [BannerController::class, 'update']);
+    Route::put('/banners/{banner}', [BannerController::class, 'update']);
     Route::delete('/banners/{banner}', [BannerController::class, 'destroy']);
 
     Route::post('/settings', [SettingController::class, 'update']);

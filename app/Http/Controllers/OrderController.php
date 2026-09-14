@@ -28,22 +28,54 @@ public function undeliver($id)
         return Order::latest()->get();
     }
 
-    public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'customer_name' => 'required|string',
-            'customer_phone' => 'required|string',
-            'customer_address' => 'nullable|string',
-            'items' => 'required|array',
-            'total' => 'required|numeric',
-        ]);
+   public function store(Request $request)
+{
+    $validated = $request->validate([
+        'customer_name' => 'required|string',
+        'customer_phone' => 'required|string',
+        'customer_address' => 'nullable|string',
+        'delivery_city' => 'nullable|string',
+        'delivery_price' => 'nullable|numeric',
+        'items' => 'required|array',
+        'total' => 'required|numeric',
+    ]);
 
-        $order = Order::create($validated);
+    $order = Order::create($validated);
 
-        $this->sendNotification($order);
+    if (empty($order->order_code)) {
+        do {
+            $code = 'MB-' . random_int(1000, 9999);
+        } while (Order::where('order_code', $code)->exists());
 
-        return response()->json($order, 201);
+        $order->order_code = $code;
+        $order->save();
     }
+
+    $order->refresh();
+
+    $this->sendNotification($order);
+
+    return response()->json($order, 201);
+}
+    public function trackByCode($code)
+{
+    $order = Order::where('order_code', $code)->first();
+
+    if (!$order) {
+        return response()->json(['message' => 'Commande introuvable'], 404);
+    }
+
+    return response()->json([
+        'order_code' => $order->order_code,
+        'status' => $order->status,
+        'is_delivered' => $order->is_delivered,
+        'created_at' => $order->created_at,
+        'items' => $order->items,
+        'delivery_city' => $order->delivery_city,
+        'delivery_price' => $order->delivery_price,
+        'total' => $order->total,
+    ]);
+}
 
     private function sendNotification(Order $order)
 {
