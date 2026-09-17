@@ -24,9 +24,9 @@ class SettingController extends Controller
             'instagram_url', 'address', 'working_hours',
             'callmebot_api_key', 'promo_banner',
             'promo_title', 'promo_text', 'promo_btn', 'promo_link',
-            'lookbook_title_1', 'lookbook_link_1',
-            'lookbook_title_2', 'lookbook_link_2',
-            'lookbook_title_3', 'lookbook_link_3',
+            'lookbook_title_1', 'lookbook_link_1', 'lookbook_active_1',
+            'lookbook_title_2', 'lookbook_link_2', 'lookbook_active_2',
+            'lookbook_title_3', 'lookbook_link_3', 'lookbook_active_3',
         ];
     
         foreach ($fields as $key) {
