@@ -27,6 +27,7 @@ class SettingController extends Controller
             'lookbook_title_1', 'lookbook_link_1', 'lookbook_active_1',
             'lookbook_title_2', 'lookbook_link_2', 'lookbook_active_2',
             'lookbook_title_3', 'lookbook_link_3', 'lookbook_active_3',
+            'promo_title', 'promo_text', 'promo_btn', 'promo_link', 'promo_active',
         ];
     
         foreach ($fields as $key) {
