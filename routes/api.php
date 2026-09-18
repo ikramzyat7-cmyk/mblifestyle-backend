@@ -51,6 +51,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::patch('/orders/{order}/cancel', [OrderController::class, 'cancel']);
     Route::patch('/orders/{id}/deliver', [OrderController::class, 'deliver']);
     Route::patch('/orders/{id}/undeliver', [OrderController::class, 'undeliver']);
+    Route::delete('/orders/reset/{type}', [OrderController::class, 'resetByType']);
 
     Route::get('/admin/slides', [SlideController::class, 'adminIndex']);
     Route::post('/slides', [SlideController::class, 'store']);

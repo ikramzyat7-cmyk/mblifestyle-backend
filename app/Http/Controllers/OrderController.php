@@ -217,7 +217,7 @@ public function undeliver($id)
         return response()->json($order);
     }
 
-    public function cancel(Order $order)
+        public function cancel(Order $order)
     {
         $order->update(['status' => 'cancelled']);
         \App\Models\ActivityLog::record(
@@ -228,5 +228,35 @@ public function undeliver($id)
         );
         return response()->json($order);
     }
-    
+
+    public function resetByType($type)
+    {
+        switch ($type) {
+            case 'pending':
+                $query = Order::where('status', 'pending');
+                break;
+            case 'confirmed':
+                $query = Order::where('status', 'confirmed');
+                break;
+            case 'cancelled':
+                $query = Order::where('status', 'cancelled');
+                break;
+            case 'delivered':
+                $query = Order::where('is_delivered', true);
+                break;
+            case 'not_delivered':
+                $query = Order::where('is_delivered', false);
+                break;
+            case 'all':
+                $query = Order::query();
+                break;
+            default:
+                return response()->json(['message' => 'Type invalide'], 400);
+        }
+
+        $count = $query->count();
+        $query->delete();
+
+        return response()->json(['message' => "$count commande(s) supprimee(s)", 'count' => $count]);
+    }
 }
