@@ -33,6 +33,7 @@ class ReviewController extends Controller
     'rating' => 'required|integer|min:1|max:5',
     'comment' => 'required|string',
     'product' => 'nullable|string',
+    'product_id' => 'nullable|integer',
     'image' => 'nullable|file|max:5120',
 ]);
 
