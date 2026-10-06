@@ -5,7 +5,13 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['http://localhost:5173', 'http://localhost:5174', 'https://mblifestyle-frontend.vercel.app'],
+    'allowed_origins' => [
+        'http://localhost:5173',
+        'http://localhost:5174',
+        'https://mblifestyle-frontend.vercel.app',
+        'https://mblifestyle.shop',
+        'https://www.mblifestyle.shop',
+    ],
 
     'allowed_origins_patterns' => [],
 
